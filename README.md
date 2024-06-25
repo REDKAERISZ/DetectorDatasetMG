@@ -6,7 +6,7 @@ To generate a:
 * Normalized 
 * Denoised 
 
-grayscale/DICOM image dataset, please run de 3classdataset notebook. The algorithm can be tested before by running the testing.ipynb. 
+grayscale/DICOM image dataset, please run the 3classdataset notebook. The algorithm can be tested before by running the testing.ipynb. 
 The sample coordinates provided within the Templatedetfile.xlsx correspond to the abnormalities found on mammography images taken from publicly available datasets that can be downloaded here:
 
 * MIAS: https://www.kaggle.com/datasets/kmader/mias-mammography (please note that it is preferable if you convert these images from .pgm to another format such as .dcm or .png)
