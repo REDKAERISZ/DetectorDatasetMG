@@ -3,6 +3,7 @@ import numpy as np
 from PIL import Image
 from skimage.transform import resize
 from pydicom import dcmread
+#import cupy as cp
 
 def reduce_poisson_noise(image):
     image_uint8 = image.astype(np.uint8)
@@ -85,3 +86,71 @@ def dicom_preprocessing (image_path, pixy, pixx):
         image_np = np.array(image)
     
         return image_np
+    
+# def dicom_preprocessing_on_cupy (image_path, pixx, pixy):
+#     dicom = dcmread(image_path)
+#     image = cp.asarray(dicom.pixel_array)
+
+#     # Verify if metadata contains the following attributes
+#     if hasattr(dicom, 'WindowWidth'):
+#         window = dicom.WindowWidth
+#         level = dicom.WindowCenter
+#         photo_inter = dicom.PhotometricInterpretation
+#         model = dicom.ManufacturerModelName
+#         padding = dicom.PixelPaddingValue 
+
+#         if model == 'GIOTTO IMAGE 3DL' or model == 'GIOTTO CLASS':
+#             window = window[0]
+#             level = level[0]
+
+#         if photo_inter == 'MONOCHROME1':
+#             image[image == 1] += padding
+#             level = cp.max(image) - level
+#             image = cp.max(image) - image 
+
+#         if model == 'GIOTTO IMAGE 3DL' or model == 'GIOTTO CLASS':
+#             if not isinstance(window, (list, tuple)):
+#                 window = [window]
+#             if not isinstance(level, (list, tuple)):
+#                 level = [level]
+#             window = window[0]
+#             level = level[0]
+
+#         size = (pixy, pixx)
+#         image = resize(cp.asnumpy(image), output_shape=size, preserve_range=True).astype(cp.float32)    
+        
+#         # Normalize pixel intensities, and convert to 8-bit
+#         image -= (level - window / 2)
+#         image /= window
+#         image[image < 0] = 0
+#         image[image > 1] = 1
+#         image *= 255
+
+#     else:
+#         brightness_range = (0, 255)
+#         photo_inter = dicom.get("PhotometricInterpretation", "Unknown")
+#         if photo_inter == "MONOCHROME2":
+#             min_value = cp.min(image)
+#             max_value = cp.max(image)
+#             image = ((image - min_value) / (max_value - min_value)) * (brightness_range[1] - brightness_range[0]) + brightness_range[0]
+#         else:
+#             image = cp.max(image) - image  # Invert pixel values for MONOCHROME1
+#             min_value = cp.min(image)
+#             max_value = cp.max(image)
+#             image = ((image - min_value) / (max_value - min_value)) * (brightness_range[1] - brightness_range[0]) + brightness_range[0]
+
+#     if image.dtype != cp.uint8:
+#         image = image.astype(cp.uint8)
+
+#     # If grayscale, replicate into 3 channels
+#     if len(image.shape) == 2:
+#         image = cp.stack((image,) * 3, axis=-1)
+
+#     # Convert to PIL image
+#     image = Image.fromarray(cp.asnumpy(image))
+#     image_np = cp.asnumpy(image)
+    
+#     return image_np  
+    
+    
+        
