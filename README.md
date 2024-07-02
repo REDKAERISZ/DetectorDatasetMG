@@ -25,11 +25,16 @@ Don't forget to install
 pip install pandas
 ```
 ```
-pip install scikit-image
-```
-```
 pip install tqdm 
 ```
 ```
 pip install opencv-python
+```
+For CUDA 12.x
+```
+pip install cupy-cuda12x
+```
+For CUDA 11.2 ~ 11.x
+```
+pip install cupy-cuda11x
 ```
