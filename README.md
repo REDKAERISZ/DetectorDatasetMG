@@ -33,3 +33,7 @@ pip install tqdm
 ```
 pip install opencv-python
 ```
+For CUDA 12.x
+```
+pip install cupy-cuda12x
+```
