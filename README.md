@@ -17,14 +17,19 @@ The sample coordinates provided within the Templatedetfile.xlsx correspond to th
 * BMCD https://doi.org/10.5281/zenodo.7969411
 
 
-## Install
+## Requirements
 
 Don't forget to install
 
 ```
-pip install pydicom
-
+pip install pandas
 ```
 ```
 pip install scikit-image
+```
+```
+pip install tqdm 
+```
+```
+pip install opencv-python
 ```
